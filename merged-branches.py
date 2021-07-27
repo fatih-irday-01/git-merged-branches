@@ -23,7 +23,7 @@ class bcolors:
 def bgcolor(text, status):
     return status + text + bcolors.ENDC
 
-# os.system("git fetch -qp")
+os.system("git fetch -qp")
 data = os.popen('git ls-remote | grep -v "tags\|HEAD\|From\|/master\|/test\|dev\|release"')
 data = data.read()
 data = data.splitlines()
