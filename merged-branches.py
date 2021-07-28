@@ -23,7 +23,7 @@ class bcolors:
 def bgcolor(text, status):
     return status + text + bcolors.ENDC
 
-os.system("git fetch -qp")
+# os.system("git fetch -qp")
 data = os.popen('git ls-remote | grep -v "tags\|HEAD\|From\|/master\|/test\|dev\|release"')
 data = data.read()
 data = data.splitlines()
@@ -63,7 +63,7 @@ for key, item in enumerate(users):
     users[item] = colors[key] + item + '\033[0m'
 
 
-table = PrettyTable([bgcolor("User", bcolors.OKGREEN), bgcolor('Commant', bcolors.OKGREEN), bgcolor('Datetime', bcolors.OKGREEN)])
+table = PrettyTable([bgcolor("User", bcolors.OKGREEN), bgcolor('Commant', bcolors.OKGREEN), bgcolor('Last Update', bcolors.OKGREEN)])
 # table.hrules=ALL
 table.align='l'
 table.valign='t'
