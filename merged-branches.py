@@ -71,31 +71,30 @@ lines = False
 
 for item in data:
     commitHash, branchName = item.split('refs/heads/')
-    result = os.popen("git branch -r --contains "+commitHash+" | grep "+remoteBranchToCheck+" | grep -vi 'head'").read()
-    for resultRow in result.splitlines():
-        isMergedIntoBranch = resultRow.strip() == remoteBranchToCheck
-        if isMergedIntoBranch:
-            author = '??'
-            if(branchName in branchAuthors):
-                author = branchAuthors[branchName]
+    result = os.popen("git branch -r --contains "+commitHash+" | grep '"+remoteBranchToCheck+"$' | grep -vi 'head'").read()
+    isMergedIntoBranch = result.strip() == remoteBranchToCheck
+    if isMergedIntoBranch:
+        author = '??'
+        if(branchName in branchAuthors):
+            author = branchAuthors[branchName]
 
-            branchDateTime = '??'
-            if(branchName in branchDateTimes):
-                branchDateTime = branchDateTimes[branchName]
+        branchDateTime = '??'
+        if(branchName in branchDateTimes):
+            branchDateTime = branchDateTimes[branchName]
 
-            if(userSelect is not None and userSelect != author):
-                continue
+        if(userSelect is not None and userSelect != author):
+            continue
 
-            if author in users:
-                author = users[author]
+        if author in users:
+            author = users[author]
 
-            table.add_row([
-                author,
-                'git push origin --delete '+branchName,
-                branchDateTime
-            ])
+        table.add_row([
+            author,
+            'git push origin --delete '+branchName,
+            branchDateTime
+        ])
 
-            lines = True
+        lines = True
 
 if lines:
     print(table)
